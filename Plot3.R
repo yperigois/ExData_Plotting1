@@ -6,15 +6,15 @@ if(!file.exists("household_power_consumption.txt"))
 }
 hh<-fread("household_power_consumption.txt",sep="auto", header=TRUE, nrows=24*60*50)
 date2<-paste(hh$Date,hh$Time)
-date3<-strptime(date2, "%d/%m/%Y %H:%M:%S")
-hh<-cbind(hh,date3)
-j<-subset(hh,(date3>="2007-02-01")&(date3<"2007-02-03"))
+date_time<-strptime(date2, "%d/%m/%Y %H:%M:%S")
+hh<-cbind(hh,date_time)
+j<-subset(hh,(date_time>="2007-02-01")&(date_time<"2007-02-03"))
 
 png(filename = "Plot3.png",width = 480, height = 480, units = "px")
 
-plot(j$date3, j$Sub_metering_1, type='l',ylab="Energy sub metering", xlab="" )
-lines(j$date3, j$Sub_metering_2, col='red')
-lines(j$date3, j$Sub_metering_3, col='blue' )
+plot(j$date_time, j$Sub_metering_1, type='l',ylab="Energy sub metering", xlab="" )
+lines(j$date_time, j$Sub_metering_2, col='red')
+lines(j$date_time, j$Sub_metering_3, col='blue' )
 legend("topright", pch = "-", col = c("black", "red","blue"), legend = c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"))
 
 dev.off()
